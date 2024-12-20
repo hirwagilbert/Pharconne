@@ -1,0 +1,47 @@
+{% extends 'myapp/pharmacy_list.html' %}
+{% load static %}
+{% block content %}    
+    <!-- Main Content -->
+    <div class="content-container">
+        <div class="container mt-4">
+
+            <!-- Back to Previous Button -->
+            <a href="javascript:history.back()" class="back-button">&lt; Back to Previous</a>
+        
+            <!-- Message Container -->
+            <div class="message-container shadow-sm mt-4">
+                <div class="message-header">
+                    Message from {{ message.sender }}
+                </div>
+            
+                <!-- Pharmacy's Message -->
+                <div class="message-bubble pharmacy-message">
+                    <strong>{{ message.sender }}:</strong> <br>
+                    {{ message.content }}
+                </div>
+            
+                <!-- Reply Messages -->
+                {% if replies %}
+                {% for reply in replies %}
+                <div class="message-bubble reply-message">
+                    <strong>{{ reply.sender }}:</strong> <br>
+                    {{ reply.content }}
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>No replies yet.</p>
+                {% endif %}
+            
+                <!-- Input Box for Reply -->
+                <div class="input-container mt-3">
+                    <form method="POST" action="{% url 'replymessage' message.id %}">
+                        {% csrf_token %}
+                        <input type="text" name="content" class="form-control" placeholder="Type your reply here..." required>
+                        <button type="submit" class="btn btn-success mt-2">Send</button>
+                    </form>
+                </div>
+            </div>            
+        
+          </div>
+    </div>
+{% endblock content %}

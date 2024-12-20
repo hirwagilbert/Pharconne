@@ -1,0 +1,138 @@
+{% extends 'myapp/userhome.html' %}
+{% load static %}
+{% block content %}
+
+<div class="content-container">
+    <div class="message-container">
+        <!-- Pharmacy List Section -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <div class="container">
+                    <h2>Add Medicine</h2>
+                    <form method="POST" action="{% url 'pharmaddmedicine' %}"> <!-- Action URL -->
+                        {% csrf_token %}
+                        <!-- First Row: Medicine Name, Generic Name, SKU -->
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="medicineName" class="form-label">Medicine Name</label>
+                                <input type="text" class="form-control" id="medicineName" name="medicineName" placeholder="Medicine Name" required>
+                            </div>
+                            <div class="col">
+                                <label for="genericName" class="form-label">Generic Name</label>
+                                <input type="text" class="form-control" id="genericName" name="genericName" placeholder="Generic Name" required>
+                            </div>
+                            <div class="col">
+                                <label for="sku" class="form-label">SKU</label>
+                                <input type="text" class="form-control" id="sku" name="sku" placeholder="SKU" required>
+                            </div>
+                        </div>
+
+                        <!-- Second Row: Weight, Category, Manufacturer -->
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="weight" class="form-label">Weight</label>
+                                <input type="text" class="form-control" id="weight" name="weight" placeholder="Weight" required>
+                            </div>
+                            <div class="col">
+                                <label for="category" class="form-label">Category</label>
+                                <select class="form-select" id="category" name="category" required>
+                                    <option selected>Select</option>
+                                    <option value="1">Tablet</option>
+                                    <option value="2">Vitamin</option>
+                                    <option value="3">Syrup</option>
+                                    <option value="4">Inhaler</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="manufacture" class="form-label">Manufacture</label>
+                                <select class="form-select" id="manufacture" name="manufacture" required>
+                                    <option selected>Select</option>
+                                    <option value="1">Sun</option>
+                                    <option value="2">HealthCare</option>
+                                    <option value="3">Square</option>
+                                    <option value="4">Lupin</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Third Row: Price, Manufacturer Price, Expire Date -->
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="price" class="form-label">Price</label>
+                                <input type="number" class="form-control" id="price" name="price" placeholder="Price" required>
+                            </div>
+                            <div class="col">
+                                <label for="manufacturerPrice" class="form-label">Manufacturer Price</label>
+                                <input type="number" class="form-control" id="manufacturerPrice" name="manufacturerPrice" placeholder="Manufacturer Price" required>
+                            </div>
+                            <div class="col">
+                                <label for="expireDate" class="form-label">Expire Date</label>
+                                <input type="date" class="form-control" id="expireDate" name="expireDate" required>
+                            </div>
+                        </div>
+
+                        <!-- Fourth Row: Stock, Status -->
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="stock" class="form-label">Stock (Box)</label>
+                                <input type="number" class="form-control" id="stock" name="stock" placeholder="Stock (Box)" required>
+                            </div>
+                            <div class="col">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="form-select" id="status" name="status" required>
+                                    <option selected>Select</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Medicine Details Section -->
+                        <div class="mb-3">
+                            <label for="details" class="form-label">Medicine Details</label>
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- Toolbar -->
+                                    <div class="editor-toolbar mb-2">
+                                        <button type="button" class="btn btn-light" onclick="formatText('bold')"><b>B</b></button>
+                                        <button type="button" class="btn btn-light" onclick="formatText('italic')"><i>I</i></button>
+                                        <button type="button" class="btn btn-light" onclick="formatText('underline')"><u>U</u></button>
+                                        <button type="button" class="btn btn-light" onclick="formatText('strikeThrough')"><s>S</s></button>
+                                        <button type="button" class="btn btn-light" onclick="formatText('blockquote')">"</button>
+                                        <button type="button" class="btn btn-light" onclick="formatText('code')"><code>&lt;&gt;</code></button>
+                                        <button type="button" class="btn btn-light" onclick="formatText('h1')">H<sub>1</sub></button>
+                                        <button type="button" class="btn btn-light" onclick="formatText('sans-serif')">Sans Serif</button>
+                                    </div>
+                                    <!-- Editable Div for input -->
+                                    <div id="editor" contenteditable="true" class="form-control" style="min-height: 150px; border: 1px solid #ccc; padding: 10px; margin-top: 10px;"></div>
+                                    <input type="hidden" id="details" name="details">
+                                    <div class="form-text mt-2">Please enter medicine details...</div>
+                                </div>
+                                <!-- Add Medicine Button -->
+                                <button type="submit" class="btn btn-success" onclick="submitDetails()">Add Medicine</button>
+                            </div>
+                        </div>
+
+                        <script>
+                            function formatText(command) {
+                                document.execCommand(command, false, null);
+                            }
+
+                            function submitDetails() {
+                                const editor = document.getElementById('editor');
+                                const details = editor.innerHTML; // Get HTML content from the editor
+                                document.getElementById('details').value = details; // Set hidden input value
+                                // Form will automatically submit after setting the hidden input
+                            }
+                        </script>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{% endblock %}

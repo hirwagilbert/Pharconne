@@ -1,0 +1,207 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pharconne</title>
+
+  <link rel="icon" href="{% static 'images/log22.png' %}" type="image/x-icon">
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'myapp/css/index.css' %}">
+  
+  <!-- Google Fonts for Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    /* Prevent scrolling on the page */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;  /* Remove horizontal scrollbar */
+      overflow-y: auto;    /* Keep vertical scroll if content overflows */
+    }
+
+    /* Ensure the header is fixed at the top */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    /* Adjust the body padding to accommodate the fixed header */
+    .container {
+      padding-top: 80px; /* Make space for the fixed header */
+      min-height: 100%; /* Ensure the content takes full height */
+    }
+
+    /* Ensure the main content fits on the screen */
+    main {
+      min-height: calc(100vh - 80px); /* Subtract header height */
+      padding-bottom: 50px; /* Provide space for the footer */
+    }
+
+    /* Footer styles (not fixed) */
+    footer {
+      background-color: #343a40;
+      color: white;
+      padding: 10px 0;
+      width: 100%;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Reduce footer height */
+    footer .container {
+      padding: 5px 0;
+    }
+
+    footer a {
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header class="bg-black text-light py-1">
+    <div class="row align-items-center">
+      <div class="col-md-2 text-center">
+        <img src="{% static 'images/log22.png' %}" alt="Pharconne Logo" class="img-fluid" style="max-height: 50px; margin-right: 10em;">
+      </div>
+
+      <div class="col-md-6">
+        <form action="/" method="GET" class="d-flex">
+          <input 
+            type="text" 
+            name="query" 
+            value="{{ search_query }}" 
+            placeholder="What are you looking for...?" 
+            class="form-control me-2">
+          <button type="submit" class="btn btn-primary">
+            <span class="material-symbols-outlined">search</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="col-md-4 text-end">
+        <a href="/add_member/" class="btn btn-dark me-2">Sign up</a>
+        <a href="/login_view/" class="btn btn-dark me-4">Sign in</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white py-0">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="{% static 'images/log2.png' %}" alt="Pharconne Logo" class="img-fluid" style="max-height: 50px; margin-right: 10em;">
+        <span style="margin-left: -11em; margin-bottom: -1em;">Pharconne</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/index/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/howitwork/">How It Works</a></li>
+          <li class="nav-item"><a class="nav-link" href="/About_us/">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="/contact_us/">Contact Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="/FAQs/">FAQs</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  {% block content %}
+  <!-- Main Content -->
+  <main class="container my-5">
+    <div class="row align-items-center">
+      <div class="col-md-6 text-center text-md-start">
+        <h1>Save time, save money,<br>stay healthy.</h1>
+        <p>Finally, a pharmacy that fully delivers.</p>
+        <div class="d-flex justify-content-md-start justify-content-center">
+          <a href="/add_member/" class="btn btn-dark me-2">Sign up</a>
+          <a href="/login_view/" class="btn btn-outline-dark">Sign in</a>
+        </div>
+        <a href="#" class="d-block mt-3" style="color: #1D7174; text-decoration: none;">Check if we accept your insurance ›</a>
+      </div>
+      <div class="col-md-6 text-center">
+        <img src="{% static 'images/new5.png' %}" alt="Pharconne Logo" class="img-fluid" style="max-height: 20em; margin-right: -15em;">
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-md-6 text-center text-md-start">
+        <p>
+          "Unlock new opportunities for your pharmacy!<br>
+          Join our exclusive network to connect with thousands of buyers,<br>
+          streamline your operations, and boost your sales.<br>
+          With a personalized website and easy supply management,<br>
+          you'll reach more customers and grow your business effortlessly.<br>
+          Start today and be part of the future of pharmacy!"
+        </p>
+      </div>
+      <div class="col-md-6 text-center">
+        <img src="{% static 'images/new6.jpeg' %}" alt="Pharconne Logo" class="img-fluid" style="max-height: 20em; margin-right: -15em;">
+      </div>
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title mb-3">Pharmacy List</h5>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Contacts</th>
+                        <th>Location</th>
+                        <th>Working Hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for item in data %}
+                    <tr>
+                      <td>{{ item.P_name }}</td>
+                      <td>{{ item.contact_info }}</td>
+                      <td>{{ item.location }}</td>
+                      <td>{{ item.start_time }} - {{ item.end_time }}</td>
+                    </tr>
+                  {% empty %}
+                    <tr>
+                      <td colspan="4">No data found!</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+  </main>
+  {% endblock content %}
+
+  <!-- Footer -->
+  <footer class="bg-dark text-light py-1">
+    <div class="container text-center">
+        <a href="#" class="text-decoration-none text-white">Back to top</a>
+    </div>
+    <div class="container d-flex justify-content-center my-1">
+        <a href="#" class="text-decoration-none text-white mx-1">Your Account</a>
+        <a href="#" class="text-decoration-none text-white mx-1">Help</a>
+        <a href="#" class="text-decoration-none text-white mx-1">Your Orders</a>
+        <a href="#" class="text-decoration-none text-white mx-1">Already a Customer? Sign in</a>
+    </div>
+    <div class="container text-center">
+        <img src="{% static 'images/log22.png' %}" alt="Pharconne Logo" class="img-fluid" style="max-height: 30px; margin-right: 1em;">
+        <p class="mt-2" style="font-size: 12px;">Pharconne Terms of use | pharconne@pharconne.com | +250799816864823</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+{% extends 'myapp/userhome.html' %}
+{% load static %}
+{% block content %}
+
+<div class="content-container">
+    <div class="message-container">
+        <!-- Pharmacy List Section -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <div class="container">
+                    <h2 class="mt-4">Medicine</h2>
+                    <p>Here is the medicine list.</p>
+                    <div class="table-container">
+                        <div class="d-flex justify-content-between mb-3">
+                            <div class="dropdown me-2">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" onclick="toggleFilterDropdown(event)" style="color: black;">
+                                    Filtered By <span class="caret"></span>
+                                </button>
+                                <div class="dropdown-menu filter-dropdown" style="display: none;"> <!-- Set initial display to none -->
+                                    <a class="dropdown-item" href="#" onclick="sortTable('asc')">Alphabetically, A-Z</a>
+                                    <a class="dropdown-item" href="#" onclick="sortTable('desc')">Alphabetically, Z-A</a>
+                                    <a class="dropdown-item" href="#">Best Selling</a>
+                                </div>
+                            </div>
+                            
+                            <script>
+                                function toggleFilterDropdown(event) {
+                                    event.stopPropagation(); // Prevent event from bubbling up
+                                    const dropdownMenu = event.currentTarget.nextElementSibling; // Get the associated dropdown menu
+                                    const isVisible = dropdownMenu.style.display === 'block';
+                                    dropdownMenu.style.display = isVisible ? 'none' : 'block';
+                            
+                                    // Close other dropdowns
+                                    const allDropdowns = document.querySelectorAll('.dropdown-menu');
+                                    allDropdowns.forEach(menu => {
+                                        if (menu !== dropdownMenu) {
+                                            menu.style.display = 'none';
+                                        }
+                                    });
+                                }
+                            
+                                function sortTable(order) {
+                                    const table = document.getElementById('medicineTable');
+                                    const rows = Array.from(table.rows).slice(1); // Exclude header row
+                            
+                                    rows.sort((a, b) => {
+                                        const nameA = a.cells[0].textContent.toLowerCase(); // Assuming sorting by the first column
+                                        const nameB = b.cells[0].textContent.toLowerCase();
+                                        return order === 'asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+                                    });
+                            
+                                    // Reattach sorted rows to the table
+                                    rows.forEach(row => table.appendChild(row));
+                            
+                                    // Close the dropdown after sorting
+                                    const dropdownMenu = document.querySelector('.filter-dropdown');
+                                    dropdownMenu.style.display = 'none';
+                                }
+                            
+                                // Close dropdowns when clicking outside
+                                window.onclick = function(event) {
+                                    if (!event.target.matches('.dropdown-toggle')) {
+                                        const dropdowns = document.querySelectorAll('.dropdown-menu');
+                                        dropdowns.forEach(menu => {
+                                            menu.style.display = 'none';
+                                        });
+                                    }
+                                };
+                            </script>
+                            <button class="btn btn-primary btn-add" onclick="window.location.href='{% url 'pharmaddmedicine' %}'">Add Medicine</button>
+                        </div>
+                        <table class="table table-striped" id="medicineTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Generic Name</th>
+                                    <th scope="col">Weight</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Price (USD)</th>
+                                    <th scope="col">Stock</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for medicine in data %}
+                                    <tr>
+                                        <td>{{ medicine.generic_name }}</td>
+                                        <td>{{ medicine.weight }}</td>
+                                        <td>{{ medicine.category }}</td>
+                                        <td>{{ medicine.price }}</td>
+                                        <td>{{ medicine.stock }}</td>
+                                        <td>
+                                            <span class="badge" style="background-color: {% if medicine.status == 'active' %}green{% else %}red{% endif %}; color: white;">
+                                                {{ medicine.status }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" onclick="toggleDropdown(event)">
+                                                    ...
+                                                </button>
+                                                <div class="dropdown-menu" style="display: none;"> <!-- Set initial display to none -->
+                                                    <a class="dropdown-item" href="#">Manufacturer</a>
+                                                    <a class="dropdown-item" href="/medicinedetails/">View Details</a>
+                                                    <a class="dropdown-item" href="#">Edit</a>
+                                                    <a class="dropdown-item text-danger" href="#">Remove</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        
+                                        <script>
+                                            function toggleDropdown(event) {
+                                                event.stopPropagation(); // Prevent event from bubbling up
+                                                const dropdownMenu = event.currentTarget.nextElementSibling; // Get the associated dropdown menu
+                                                const isVisible = dropdownMenu.style.display === 'block';
+                                                dropdownMenu.style.display = isVisible ? 'none' : 'block';
+                                        
+                                                // Close other dropdowns
+                                                const allDropdowns = document.querySelectorAll('.dropdown-menu');
+                                                allDropdowns.forEach(menu => {
+                                                    if (menu !== dropdownMenu) {
+                                                        menu.style.display = 'none';
+                                                    }
+                                                });
+                                            }
+                                        
+                                            // Close dropdowns when clicking outside
+                                            window.onclick = function(event) {
+                                                if (!event.target.matches('.dropdown-toggle')) {
+                                                    const dropdowns = document.querySelectorAll('.dropdown-menu');
+                                                    dropdowns.forEach(menu => {
+                                                        menu.style.display = 'none';
+                                                    });
+                                                }
+                                            };
+                                        </script>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="7" class="text-center">No medicines available.</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Your existing JavaScript functions...
+</script>
+{% endblock %}

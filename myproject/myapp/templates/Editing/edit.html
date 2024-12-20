@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Pharmacy Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="edit-profile-box" class="profile-box" style="display:none; position: absolute; top: 60px; left: 0; background-color: white; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); z-index: 100; margin-left: 50em;">
+        <h4>Edit Pharmacy Profile</h4>
+        <form method="POST" action="{% url 'edit_pharmacy_profile' %}">
+            {% csrf_token %}
+    
+            <!-- Pharmacy Name -->
+            <div class="mb-3">
+                <label for="P_name" class="form-label">Pharmacy Name</label>
+                <input type="text" class="form-control" id="P_name" name="P_name" value="{{ pharmacy.P_name }}" placeholder="enter new name">
+            </div>
+    
+            <!-- Contact Info -->
+            <div class="mb-3">
+                <label for="contact_info" class="form-label">Contact Info</label>
+                <input type="text" class="form-control" id="contact_info" name="contact_info" value="{{ pharmacy.contact_info }}">
+            </div>
+    
+            <!-- Location -->
+            <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" class="form-control" id="location" name="location" value="{{ pharmacy.location }}">
+            </div>
+    
+            <!-- Password -->
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" value="{{ pharmacy.password }}">
+            </div>
+    
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

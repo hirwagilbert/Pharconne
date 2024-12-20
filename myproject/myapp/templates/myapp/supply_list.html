@@ -1,0 +1,36 @@
+{% extends 'myapp/pharmacy_list.html' %}
+{% load static %}
+{% block content %}
+
+<div class="content-container">
+    <div class="message-container">
+        <!-- Pharmacy List Section -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Pharmacy List</h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Supplier Name</th>
+                            <th>Contact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for supply in data %}
+                        <tr>
+                            <td style="color: #007bff; font-weight: bold;">{{ supply.name }}</td>
+                            <td>{{ supply.contact }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center">No supply found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

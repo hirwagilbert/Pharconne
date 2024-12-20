@@ -1,0 +1,52 @@
+{% extends 'myapp/index.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row align-items-center">
+  <div class="col-md-5 text-center text-md-start">
+    <div class="col-md-6 text-center">
+        <img src="{% static 'images/new6.jpeg' %}" alt="Pharconne Logo" class="img-fluid" 
+             style="height: 25em; width: auto; margin-right: -15em;">
+    </div>
+    <a href="#" class="d-block mt-3" style="color: #1D7174; text-decoration: none; margin-left: 4em;">
+        It's a pleasure to register your company here
+    </a>
+</div>
+  <div class="col-md-5 login-container">
+    <p class="h4 text-center mb-4">Signup Form</p>
+
+    <!-- Display error messages -->
+    {% if messages %}
+      <div class="alert alert-danger">
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- Signup Form -->
+    <form method="post" class="login-form mt-4">
+      {% csrf_token %}
+      
+      <input type="text" class="form-control" name="P_name" placeholder="Pharmacy Name"  required>
+      <input type="text" class="form-control" name="contact_info" placeholder="Contact Info" required>
+      <input type="text" class="form-control" name="location" placeholder="Location" required>
+      <label for="opentime">open time</label>
+      <input type="time" class="form-control" name="start_time" placeholder="open time" required>
+      <label for="opentime">close time</label>
+      <input type="time" class="form-control" name="end_time" placeholder="close time" required>
+      <input type="password" class="form-control" name="password" placeholder="Password" required>
+
+      <button type="submit" class="btn btn-primary">Signup</button>
+    </form>
+    
+    <!-- Login Link -->
+    <p class="signup-text mt-3">
+      Already have an account? <a href="{% url 'login_view' %}">Login here</a>.
+    </p>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</div>
+
+ 
+  {% endblock content %}

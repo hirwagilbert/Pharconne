@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+
+        header {
+            background: #007BFF;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .status-pending {
+            color: orange;
+            
+        }
+        .status-processing {
+            color: blue;
+            
+        }
+
+        .status-shipped {
+            color: yellowgreen;
+            
+        }
+
+        .status-completed {
+            color: green;
+            
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Order Management</h1>
+        </header>
+
+        <main>
+            <h2>Orders Table</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name of Medicine</th>
+                        <th>Quantity</th>
+                        <th>Import Date</th>
+                        <th>Supplier</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="orderTableBody">
+                    <!-- Rows will be dynamically generated here -->
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+    <script>
+        // Sample data for the orders table
+        const orders = [
+            { name: 'Medicine A', quantity: 50, impDate: '2023-01-10', supplier: 'Supplier X', status: 'Pending' },
+            { name: 'Medicine A', quantity: 40, impDate: '2023-01-10', supplier: 'Supplier X', status: 'Processing' },
+            { name: 'Medicine B', quantity: 75, impDate: '2023-02-20', supplier: 'Supplier Y', status: 'Shipped' },
+            { name: 'Medicine C', quantity: 30, impDate: '2023-03-15', supplier: 'Supplier Z', status: 'Completed' }
+        ];
+
+        // Function to create the table rows dynamically
+        function generateTableRows() {
+            const tableBody = document.getElementById('orderTableBody');
+            tableBody.innerHTML = '';  // Clear the table body
+
+            orders.forEach((order) => {
+                const row = document.createElement('tr');
+
+                // Create the columns for the row
+                row.innerHTML = `
+                    <td>${order.name}</td>
+                    <td>${order.quantity}</td>
+                    <td>${order.impDate}</td>
+                    <td>${order.supplier}</td>
+                    <td><span class="status-${order.status.toLowerCase()}">${order.status}</span></td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Generate the initial table rows when the page loads
+        document.addEventListener('DOMContentLoaded', generateTableRows);
+    </script>
+    
+</body>
+</html>

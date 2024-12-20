@@ -1,0 +1,127 @@
+/* Styling for the login container */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .login-container {
+    background-color: #d3d3d3;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Adds spacing between elements */
+  }
+
+  .login-container p{
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  /* Styling for the header tabs */
+  .login-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .login-header a {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .active-tab {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .inactive-tab {
+    background-color: transparent;
+    color: #808080;
+  }
+  
+  /* Styling for the form inputs */
+  .login-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .login-form input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+  }
+  
+  /* Styling for the forgot password link */
+  .forgot-password {
+    display: block;
+    color: #007bff;
+    text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  
+  .forgot-password:hover {
+    text-decoration: underline;
+  }
+  
+  /* Styling for the login button */
+  .login-btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 90%;
+    border-radius: 4px;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .login-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Styling for the signup text */
+  .signup-text {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #808080;
+    text-align: center;
+  }
+  
+  .signup-text a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 20px;
+  }
+  
+  .signup-text a:hover {
+    text-decoration: none;
+    font-size: 20px;
+  }
+  

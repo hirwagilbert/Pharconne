@@ -1,0 +1,125 @@
+{% extends 'myapp/index.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #FDFCF7;
+  }
+
+  h1 {
+    color: #333;
+  }
+
+  .faq-link {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 18px;
+  }
+
+  .faq-link:hover {
+    text-decoration: underline;
+  }
+
+  .faq-section {
+    margin-top: 3em;
+  }
+
+  .faq-section h2 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .faq-section p {
+    font-size: 18px;
+    margin-bottom: 2em;
+  }
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container py-5">
+  <h1 class="text-center mb-4">Frequently Asked Questions</h1>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div id="question1" class="faq-section">
+        <h2>How does Pharconne connect pharmacies and suppliers?</h2>
+        <p>Pharconne provides a platform where pharmacies can easily connect with suppliers. Suppliers can list their products, and pharmacies can browse and order medications, ensuring smooth communication and quick deliveries.</p>
+      </div>
+
+      <div id="question2" class="faq-section">
+        <h2>What makes Pharconne different from other pharmacy supply chain platforms?</h2>
+        <p>Pharconne focuses on enhancing the relationship between pharmacies and suppliers by offering real-time inventory updates, competitive pricing, and a user-friendly interface to improve efficiency and reduce costs.</p>
+      </div>
+
+      <div id="question3" class="faq-section">
+        <h2>How does the prescription process work on Pharconne?</h2>
+        <p>Pharconne allows pharmacies to receive prescriptions directly from doctors and handle medication fulfillment. Prescriptions are securely transferred through the platform to ensure accuracy and privacy.</p>
+      </div>
+
+      <div id="question4" class="faq-section">
+        <h2>How do pharmacies and suppliers benefit from using Pharconne?</h2>
+        <p>Pharconne allows pharmacies to access a wide range of products at competitive prices, while suppliers can reach more customers. This symbiotic relationship ensures smooth transactions and better inventory management.</p>
+      </div>
+
+      <div id="question5" class="faq-section">
+        <h2>How does Pharconne ensure the security of pharmacy data, prescriptions, and transactions?</h2>
+        <p>Pharconne uses encryption and other security measures to ensure that sensitive data, such as prescriptions and financial transactions, is protected. The platform complies with data privacy laws to safeguard user information.</p>
+      </div>
+
+      <div id="question6" class="faq-section">
+        <h2>Can customers track the status of their prescription delivery?</h2>
+        <p>Yes, customers can track the progress of their prescription orders in real-time through Pharconne, ensuring that they are always informed about their order's status.</p>
+      </div>
+
+      <div id="question7" class="faq-section">
+        <h2>Is Pharconne available to pharmacies of all sizes?</h2>
+        <p>Yes, Pharconne is designed to cater to both small and large pharmacies. It offers flexible plans and services that can scale based on the size and needs of the pharmacy.</p>
+      </div>
+
+      <div id="question8" class="faq-section">
+        <h2>How does Pharconne manage inventory across multiple pharmacies and suppliers?</h2>
+        <p>Pharconne uses a centralized system that provides real-time inventory updates to both pharmacies and suppliers, ensuring that stock levels are accurately tracked and orders are fulfilled on time.</p>
+      </div>
+
+      <div id="question9" class="faq-section">
+        <h2>What payment methods does Pharconne support for transactions?</h2>
+        <p>Pharconne supports various payment methods, including credit/debit cards and online banking, to make transactions simple and secure for both pharmacies and suppliers.</p>
+      </div>
+
+      <div id="question10" class="faq-section">
+        <h2>How do customers find the nearest pharmacy using Pharconne?</h2>
+        <p>Pharconne provides an easy-to-use search tool that allows customers to find pharmacies based on location, product availability, and other criteria.</p>
+      </div>
+
+      <div id="question11" class="faq-section">
+        <h2>What happens if a customer’s preferred pharmacy is out of stock?</h2>
+        <p>If a pharmacy is out of stock, Pharconne will automatically suggest alternative pharmacies nearby that have the required medication in stock.</p>
+      </div>
+
+      <div id="question12" class="faq-section">
+        <h2>Is there a mobile app for Pharconne, or is it web-based only?</h2>
+        <p>Pharconne is currently web-based, but we are planning to launch a mobile app for more convenience in the near future.</p>
+      </div>
+
+      <div id="question13" class="faq-section">
+        <h2>How do suppliers list their products on Pharconne?</h2>
+        <p>Suppliers can create an account on Pharconne and list their products by entering detailed product information, prices, and stock levels. Pharconne offers a simple and streamlined process for suppliers to get started.</p>
+      </div>
+
+      <div id="question14" class="faq-section">
+        <h2>What is the revenue model for Pharconne?</h2>
+        <p>Pharconne generates revenue by charging a small commission on each transaction between pharmacies and suppliers. The platform also offers subscription plans for pharmacies and suppliers who want additional features.</p>
+      </div>
+
+      <div id="question15" class="faq-section">
+        <h2>What support does Pharconne offer to pharmacies and suppliers who have technical issues?</h2>
+        <p>Pharconne provides 24/7 customer support through email and chat, ensuring that any technical issues faced by pharmacies and suppliers are resolved promptly.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,132 @@
+{% extends 'myapp/index.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #FDFCF7;
+  }
+
+  h1 {
+    color: #333;
+  }
+
+  .lead {
+    color: #555;
+  }
+
+  .btn-warning {
+    background-color: #b77906;
+    border: none;
+  }
+
+  .btn-warning:hover {
+    background-color: #e69500;
+  }
+
+  .btn-success {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-success:hover {
+    background-color: #155e3f;
+    color: white;
+  }
+
+  iframe {
+    max-width: 100%;
+    height: auto;
+  }
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container-fluid bg-light py-5">
+    <div class="row align-items-center">
+        <!-- Left Column -->
+        <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
+            <h1 class="fw-bold display-4">Get to know your new pharmacy</h1>
+            <p class="lead">And have your medication delivered right to your door.</p>
+            <a href="/add_member/" class="btn btn-warning btn-lg fw-bold text-white">
+                Get started
+            </a>
+            <p class="mt-3">
+                <a href="#" class="text-success text-decoration-none">Already sent us a prescription?</a>
+            </p>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-md-6 text-center">
+            <div class="position-relative">
+                <iframe src="https://www.youtube.com/embed/your-video-id" 
+                  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                </iframe>
+                <a href="#" class="btn btn-success position-absolute top-50 start-50 translate-middle">
+                    See how Pharconne works
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-5">
+    <!-- How It Works Section -->
+    <h4 class="text-center mb-5">How It Works</h4>
+    <div class="row align-items-center mb-5">
+        <div class="col-md-6">
+            <h2 class="fw-bold mb-3">Getting Started with Pharconne</h2>
+            <div class="step-number mb-2">
+                <span class="d-inline-flex justify-content-center align-items-center rounded-circle bg-primary text-white fw-bold fs-4" style="width: 40px; height: 40px;">1</span>
+            </div>
+            <h3 class="fw-bold">Add your prescription</h3>
+            <p class="mb-2">
+                To transfer your prescription to Pharconne, we just need the name of your medication and the current pharmacy. We’ll handle the rest, making sure your medication is delivered to you from a nearby pharmacy.
+            </p>
+            <p class="mb-3">
+                For new prescriptions, your doctor can directly send them to Pharconne, just like any other pharmacy.
+            </p>
+            <a href="#" class="text-success text-decoration-none">What should I tell my prescriber?</a>
+        </div>
+        <div class="col-md-6 text-center">
+            <img src="{% static 'images/log2.png' %}" alt="Illustration" class="img-fluid rounded-circle" style="width: 60%; height: auto; object-fit: cover;">
+        </div>
+    </div>
+
+    <!-- Link Both Sides Section -->
+    <div class="row align-items-center mb-5">
+        <div class="col-md-6 order-md-2 text-center">
+            <img src="{% static 'images/log2.png' %}" alt="Illustration" class="img-fluid rounded-circle" style="width: 60%; height: auto; object-fit: cover;">
+        </div>
+        <div class="col-md-6">
+            <div class="step-number mb-2">
+                <span class="d-inline-flex justify-content-center align-items-center rounded-circle bg-primary text-white fw-bold fs-4" style="width: 40px; height: 40px;">2</span>
+            </div>
+            <h3 class="fw-bold">We link both sides</h3>
+            <p class="mb-3">
+                Pharconne connects pharmacies and suppliers, making it easy for pharmacies to get the products they need while helping suppliers reach more buyers. This partnership benefits everyone and increases profits for both.
+            </p>
+            <a href="#" class="text-success text-decoration-none">Do you want to be one with us?</a>
+        </div>
+    </div>
+
+    <!-- Search Available Pharmacy Section -->
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <div class="step-number mb-2">
+                <span class="d-inline-flex justify-content-center align-items-center rounded-circle bg-primary text-white fw-bold fs-4" style="width: 40px; height: 40px;">3</span>
+            </div>
+            <h3 class="fw-bold">Search Available Pharmacies</h3>
+            <p class="mb-3">
+                We help you get the location, contact, and address of pharmacies available near you, wherever you are.
+            </p>
+            <button class="btn btn-success">Find it</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock content %}

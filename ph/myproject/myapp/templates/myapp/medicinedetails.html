@@ -1,0 +1,75 @@
+{% extends 'myapp/userhome.html' %}
+{% load static %}
+{% block content %}
+
+<div class="content-container">
+    <div class="medicine-info-card shadow-sm mb-4">
+        <div class="card-body">
+            <h2 class="mt-4">Medicine Information</h2>
+            <div class="medicine-details">
+                {% for medicine in data %}
+                    <div class="medicine-item">
+                        <h3 class="medicine-name">{{ medicine.name }}</h3>
+                        <p class="generic-name">Generic Name: {{ medicine.generic_name }}</p>
+                        <p class="weight">Weight: {{ medicine.weight }}</p>
+                        <p class="category">Category: {{ medicine.category }}</p>
+                        <p class="manufacturer">Manufacturer: {{ medicine.manufacturer }}</p>
+                        <p class="expire-date">Expire Date: {{ medicine.expire_date|date:"d/m/Y" }}</p>
+                        <div class="rating">
+                            <span>⭐⭐⭐⭐⭐</span> <!-- Example of star rating -->
+                            <span class="popularity">Popularity: High</span>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>No medicines available.</p>
+                {% endfor %}
+            </div>
+            <hr>
+            <div class="stock-info">
+                <h4>Stock</h4>
+                <p>Starting Stock: <strong>230 boxes</strong></p>
+                <p>Current Stock: <strong>180 boxes</strong></p>
+                <p>Remaining: <strong>75%</strong></p>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+            <hr>
+            <div class="price-info">
+                <h4>Estimate Price</h4>
+                <p>Manufacture Price: <strong>50.00 USD</strong></p>
+                <p>Selling Price: <strong>60.00 USD</strong></p>
+                <p>Wholesale Price: <strong>55.00 USD</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .medicine-info-card {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+    }
+    .medicine-name {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .medicine-details p,
+    .stock-info p,
+    .price-info p {
+        margin: 5px 0;
+    }
+    .progress {
+        background-color: #e9ecef;
+        border-radius: 5px;
+        height: 20px;
+    }
+    .progress-bar {
+        background-color: #4caf50; /* Green */
+        height: 100%;
+        border-radius: 5px;
+    }
+</style>
+
+{% endblock %}

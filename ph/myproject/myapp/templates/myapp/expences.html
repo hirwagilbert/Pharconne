@@ -1,0 +1,137 @@
+{% extends 'myapp/userhome.html' %}
+{% load static %}
+{% block content %}
+
+<div class="content-container">
+    <div class="message-container">
+        <!-- Income Section -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <div class="container mt-5">
+                    <h2 style="margin-bottom: 2em;">{{ request.session.user_name }}, Expense</h2>
+
+                    <!-- Filter Section -->
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="dropdown">
+                            <button id="filterButton" class="btn btn-outline-secondary">Filtered By ▼</button>
+                            <div id="filterDropdown" class="dropdown-menu" style="display: none;">
+                                <a class="dropdown-item" href="#">Last 7 Days</a>
+                                <a class="dropdown-item" href="#">Last 30 Days</a>
+                                <a class="dropdown-item" href="#">Last 6 Months</a>
+                            </div>
+                        </div>
+                        <a href="/pharmaddmedicine/"><button class="btn btn-success">Add Income</button></a>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-title">Electricity Charges</div>
+                                <div class="income-amount">$10,945</div>
+                                <div class="trend">
+                                    <span class="positive">▲ 4.63% vs. Yesterday</span>
+                                    <span>~</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-title">Equipements</div>
+                                <div class="income-amount">$12,338</div>
+                                <div class="trend">
+                                    <span class="negative">▼ 2.34% vs. last week</span>
+                                    <span>~</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-title">Maintenance</div>
+                                <div class="income-amount">$20,847</div>
+                                <div class="trend">
+                                    <span class="positive">▲ 1.14% vs. last Month</span>
+                                    <span>~</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-title">Manufacture</div>
+                                <div class="income-amount">$23,485</div>
+                                <div class="trend">
+                                    <span class="positive">▲ 1.34% vs. last Year</span>
+                                    <span>~</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    .card {
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        padding: 20px;
+        text-align: center;
+    }
+    .card-title {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+    .income-amount {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    .trend {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .trend span {
+        font-size: 0.9rem;
+    }
+    .positive {
+        color: green;
+    }
+    .negative {
+        color: red;
+    }
+</style>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterButton = document.getElementById('filterButton');
+        const filterDropdown = document.getElementById('filterDropdown');
+
+        filterButton.addEventListener('click', function() {
+            // Toggle the display of the dropdown menu
+            if (filterDropdown.style.display === 'none' || filterDropdown.style.display === '') {
+                filterDropdown.style.display = 'block';
+            } else {
+                filterDropdown.style.display = 'none';
+            }
+        });
+
+        // Close the dropdown if clicked outside
+        window.addEventListener('click', function(event) {
+            if (!filterButton.contains(event.target) && !filterDropdown.contains(event.target)) {
+                filterDropdown.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,353 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent scrolling behind the fixed layout */
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 16.666%; /* Bootstrap col-2 equivalent */
+    background-color: #152E38;
+    padding-top: 20px;
+    overflow-y: auto;
+}
+
+.pharconne {
+    display: flex; /* Enables flexbox for horizontal alignment */
+    align-items: center; /* Vertically centers the items */
+    border-bottom: 2px solid #fff; /* Optional: Adds bottom border */
+    padding: 10px; /* Adds some padding for better spacing */
+}
+
+.logo-img {
+    width: 40px; /* Adjust image size as needed */
+    height: 40px; /* Keeps the logo square */
+    border-radius: 50%; /* Optional: Makes the image circular */
+}
+
+h4 {
+    margin: 0; /* Removes default margin to align perfectly */
+    font-size: 18px; /* Adjust font size for better balance */
+}
+
+.sidebar a {
+    color: #bdbdbd;
+    text-decoration: none;
+    display: block;
+    padding: 10px 20px;
+    font-size: 15px;
+}
+
+.sidebar a:hover {
+    background-color: #1e1e1e;
+    color: white;
+}
+
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 16.666%; /* Align with the sidebar */
+    right: 0;
+    background-color: #0F1217;
+    padding: 15px 20px;
+    z-index: 1000; /* Ensure it stays on top */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-container {
+    position: relative; /* Ensures dropdown is positioned relative to this container */
+}
+
+.profile-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer; /* Changes cursor to pointer on hover */
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 45px; /* Adjust this to control the distance below the profile picture */
+    right: 0;
+    background-color: #152E38; /* Dark background for dropdown */
+    color: #fff; /* White text for contrast */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    width: 150px; /* Dropdown width */
+    display: none; /* Initially hidden */
+    z-index: 10; /* Ensures it appears above other content */
+}
+
+.profile-dropdown .dropdown-item {
+    padding: 10px;
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    font-size: 14px;
+}
+
+.profile-dropdown .dropdown-item:hover {
+    background-color: #1e1e1e; /* Slightly darker background on hover */
+}
+
+.profile-container:hover .profile-dropdown {
+    display: block; /* Shows the dropdown when hovering over the container */
+}
+
+.content-container {
+    position: absolute;
+    top: 70px; /* Height of the topbar */
+    left: 16.666%; /* Align with the sidebar */
+    right: 0;
+    bottom: 50px; /* Height of the footer */
+    overflow-y: auto; /* Enable scrolling for the content */
+    padding: 20px;
+    background-color: #f0f0f0; /* Optional background */
+}
+
+.message-container {
+    text-align: center;
+    background-color: #f8f9fa;
+    background-size: cover;
+    border-radius: 10px;
+    min-height: 300px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 16.666%; /* Align with the sidebar */
+    right: 0;
+    background-color: #0F1217; 
+    text-align: center;
+    padding: 10px 0;
+    color: white;
+    font-weight: bold;
+    z-index: 1000; /* Ensure it stays on top */
+    height: 2em;
+}
+
+.input-group {
+    width: 100%;
+}
+
+/* Style for the search bar container */
+.input-group {
+    max-width: 100%; /* Limit the width of the search bar */
+    margin: 0 auto; /* Center the search bar */
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Style for the search input */
+.input-group .form-control {
+    border-radius: 20px 0 0 20px; /* Rounded edges for the left side */
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    
+}
+
+.input-group .form-control:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a subtle glow */
+}
+
+/* Style for the search button */
+.input-group .btn {
+    border-radius: 0 20px 20px 0; /* Rounded edges for the right side */
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff; /* Primary button color */
+    color: #fff;
+    border: 1px solid #007bff;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.input-group .btn:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    border-color: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .input-group {
+        flex-direction: column; /* Stack input and button vertically */
+        width: 100%;
+    }
+
+    .input-group .form-control, 
+    .input-group .btn {
+        width: 100%; /* Full width for small screens */
+        border-radius: 20px; /* Fully rounded edges */
+        margin-bottom: 10px; /* Add spacing between input and button */
+    }
+
+    .input-group .btn {
+        margin-bottom: 0; /* Reset bottom margin for button */
+    }
+}
+
+/* General Page Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Light gray background */
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Section Headings */
+  h2, h4 {
+    color: #343a40; /* Dark gray */
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  h2 {
+    border-bottom: 2px solid #007bff; /* Blue underline for main title */
+    padding-bottom: 10px;
+  }
+  
+  h4 {
+    margin-top: 30px;
+  }
+  
+  /* Table Styles */
+  .table {
+    margin-bottom: 20px;
+  }
+  
+  .table-bordered {
+    border: 1px solid #dee2e6;
+  }
+  
+  .table thead {
+    background-color: #f8f9fa;
+    color: #495057; /* Slightly dark text */
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray for zebra effect */
+  }
+  
+  /* Buttons */
+  .print-button {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 20px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .print-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .container {
+      padding: 15px;
+    }
+  
+    h2 {
+      font-size: 24px;
+    }
+  
+    h4 {
+      font-size: 20px;
+    }
+  }
+  
+  /* Print Styles */
+  @media print {
+    .print-button {
+      display: none;
+    }
+  
+    body {
+      background: none;
+      margin: 0;
+      padding: 0;
+    }
+  
+    .container {
+      box-shadow: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      page-break-inside: avoid;
+    }
+  
+    .table {
+      font-size: 12px;
+    }
+  
+    h2, h4 {
+      color: black;
+    }
+  }
+
+  .message-container {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+  .message-header {
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  .message-bubble {
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    max-width: 80%;
+  }
+  .pharmacy-message {
+    background-color: #e9ecef;
+    text-align: left;
+  }
+  .reply-message {
+    background-color: #d4edda;
+    text-align: left;
+  }
+  .input-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  .input-container input {
+    flex: 1;
+    margin-right: 10px;
+  }
+  .back-button {
+    font-size: 0.9rem;
+    color: #007bff;
+    text-decoration: none;
+    margin-bottom: 10px;
+  }
+  .back-button:hover {
+    text-decoration: underline;
+  }

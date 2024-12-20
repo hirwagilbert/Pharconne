@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+
+        header {
+            background: #007BFF;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        main {
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section {
+            display: none; /* Hide sections by default */
+            margin-bottom: 20px;
+        }
+
+        section.active {
+            display: block; /* Show only the active section */
+        }
+
+        h2 {
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .chart {
+            width: 45%;
+            height: 300px;
+            background: #e9ecef;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Admin Panel</h1>
+            <nav>
+                <ul>
+                    <li><a onclick="showSection('dashboard')">Dashboard</a></li>
+                    <li><a onclick="showSection('inventory')">Inventory</a></li>
+                    <li><a onclick="showSection('orders')">Orders</a></li>
+                    <li><a onclick="showSection('alerts')">Alerts</a></li>
+                    <li><a onclick="showSection('reports')">Reports</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section id="dashboard" class="active"> <!-- Dashboard is active by default -->
+                <h2>Dashboard</h2>
+                <div class="summary">
+                    <h3>Stock Levels</h3>
+                    <div class="chart">
+                        <canvas id="stockLevelChart"></canvas> <!-- Bar chart placeholder -->
+                    </div>
+                    <div class="alerts">Alerts for low stock or expiring medicines</div>
+                </div>
+
+                <h3>MediStock Table</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Import Date (Imp Date)</th>
+                            <th>Expiry Date (Exp Date)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Medicine A</td>
+                            <td>50</td>
+                            <td>2023-01-15</td>
+                            <td>2024-12-31</td>
+                        </tr>
+                        <tr>
+                            <td>Medicine B</td>
+                            <td>75</td>
+                            <td>2023-06-10</td>
+                            <td>2024-11-20</td>
+                        </tr>
+                        <tr>
+                            <td>Medicine C</td>
+                            <td>40</td>
+                            <td>2023-03-01</td>
+                            <td>2024-10-05</td>
+                        </tr>
+                        <tr>
+                            <td>Medicine D</td>
+                            <td>90</td>
+                            <td>2023-08-22</td>
+                            <td>2025-01-15</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="quick-access" style="margin-top: 20px;">
+                    <button>Add New</button>
+                    <button>View Stock</button>
+                    <button>Generate Reports</button>
+                    <button>Remove</button>
+                    <button>Download</button>
+                </div>
+            </section>
+
+            <section id="inventory">
+                <h2>Inventory Management</h2>
+                <input type="text" placeholder="Search Medicines">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Expiry Date</th>
+                            <th>Supplier</th>
+                            <th>Batch Number</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Medicine A</td>
+                            <td>50</td>
+                            <td>2024-12-31</td>
+                            <td>Supplier X</td>
+                            <td>Batch 123</td>
+                            <td>
+                                <button>Update Stock</button>
+                                <button>Remove</button>
+                            </td>
+                        </tr>
+                        <!-- More rows as needed -->
+                    </tbody>
+                </table>
+                <button>Add New Medicine</button>
+            </section>
+
+            <section id="orders">
+                <h2>Order Management</h2>
+                <form>
+                    <select>
+                        <option>Select Medicine</option>
+                        <!-- Medicine options -->
+                    </select>
+                    <input type="number" placeholder="Quantity" required>
+                    <button type="submit">Create Order</button>
+                </form>
+                <h3>Pending Orders</h3>
+                <ul>
+                    <li>Order 1 - Pending</li>
+                    <li>Order 2 - Shipped</li>
+                    <!-- More orders -->
+                </ul>
+            </section>
+
+            <section id="alerts">
+                <h2>Alerts & Notifications</h2>
+                <ul>
+                    <li class="critical">Low stock for Medicine A</li>
+                    <li class="warning">Medicine B expires soon</li>
+                </ul>
+            </section>
+
+            <section id="reports">
+                <h2>Reports</h2>
+                <form>
+                    <label for="date-range">Date Range:</label>
+                    <input type="date" id="start-date">
+                    <input type="date" id="end-date">
+                    <button type="submit">Generate Report</button>
+                </form>
+                <div class="report-output">[Report Output Placeholder]</div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Include Chart.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show the selected section
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Show the dashboard by default
+        document.addEventListener("DOMContentLoaded", function() {
+            showSection('dashboard');
+            renderStockLevelChart();
+        });
+
+        // Function to render the stock level bar chart with matching background and border colors
+function renderStockLevelChart() {
+    const ctx = document.getElementById('stockLevelChart').getContext('2d');
+    const stockLevelChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Medicine A', 'Medicine B', 'Medicine C', 'Medicine D'], // Medicine names
+            datasets: [{
+                label: 'Stock Level',
+                data: [50, 75, 40, 90], // Stock quantities for each medicine
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',    // Light red for first bar background
+                    'rgba(54, 162, 235, 1)',    // Light blue for second bar background
+                    'rgba(75, 192, 192, 1)',    // Light green for third bar background
+                    'rgba(0, 139, 139, 1)'      // Light darkcyan for fourth bar background
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',    // Red for first bar border
+                    'rgba(54, 162, 235, 1)',    // Blue for second bar border
+                    'rgba(75, 192, 192, 1)',    // Green for third bar border
+                    'rgba(0, 139, 139, 1)'      // Darkcyan for fourth bar border
+                ],
+                borderWidth: 3 // Set the border width
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+    </script>
+</body>
+</html>

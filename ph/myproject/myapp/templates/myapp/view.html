@@ -1,0 +1,78 @@
+{% extends 'myapp/pharmacy_list.html' %}
+{% load static %}
+{% block content %}      
+
+    <!-- Main Content -->
+    <div class="content-container">
+        <body class="bg-light">
+            <div class="container notifications-container">
+              
+              <!-- Pharmacy Notifications -->
+              <div class="card shadow-sm p-3 mb-4">
+                <h3>Pharmacy Message's</h3>
+                <table class="table table-bordered table-striped">
+                  <thead class="table-dark">
+                    <tr>
+                        <th>Pharmacy Name</th>
+                        <th>Message</th>
+                        <th>Time Sent</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for message in messages %}
+                    <tr>
+                        <td>{{ message.sender }}</td>
+                        <td>{{ message.content }}</td>
+                        <td>{{ message.sent_at }}</td>
+                        <td>
+                            <a href="#" class="btn btn-primary btn-sm">View</a>
+                            <a href="#" class="btn btn-secondary btn-sm">Reply</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+              </table>                           
+              </div>
+              
+              <!-- Supplier Notifications -->
+              <div class="card shadow-sm p-3">
+                <h3>Supplier Message's</h3>
+                <table class="table table-bordered table-striped">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>Supplier Name</th>
+                      <th>Messages</th>
+                      <th>Pharmacy Name</th>
+                      <th>Time</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Supplier A</td>
+                      <td>Message from Supplier A</td>
+                      <td>Pharmacy A</td>
+                      <td>10:15 AM</td>
+                      <td>
+                        <a href="#" class="btn btn-primary btn-sm">View</a>
+                        <a href="#" class="btn btn-secondary btn-sm">Reply</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Supplier B</td>
+                      <td>Message from Supplier B</td>
+                      <td>Pharmacy B</td>
+                      <td>10:45 AM</td>
+                      <td>
+                        <a href="#" class="btn btn-primary btn-sm">View</a>
+                        <a href="#" class="btn btn-secondary btn-sm">Reply</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+          
+            </div>
+    </div>
+{% endblock content %}

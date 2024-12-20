@@ -1,0 +1,129 @@
+{% extends 'myapp/index.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #FDFCF7;
+  }
+
+  h1 {
+    color: #333;
+  }
+
+  .about-section {
+    margin-top: 3em;
+    margin-bottom: 3em;
+  }
+
+  .about-section h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: left; /* Align h2 to the left */
+  }
+
+  .about-section p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #555;
+    text-align: center; /* Center paragraph text */
+  }
+
+  .about-section .mission-statement {
+    margin-top: 2em;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff;
+  }
+
+  .team-section {
+    margin-top: 4em;
+  }
+
+  .team-member {
+    margin-bottom: 2em;
+  }
+
+  .team-member img {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+  }
+
+  .team-member h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .team-member p {
+    font-size: 1.1rem;
+    color: #555;
+  }
+
+  .mission-statement h2 {
+    text-align: left; /* Align h2 of the mission statement to the left */
+  }
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container py-5">
+  <!-- About Us Section -->
+  <div class="about-section">
+    <h1 class="text-center mb-4">About Pharconne</h1>
+    <h2 class="text-left">Connecting Pharmacies and Suppliers</h2>
+    <p class="text-left">
+      Pharconne is an innovative platform designed to bridge the gap between pharmacies and suppliers. Our goal is to streamline the supply chain process, making it easier for pharmacies to access the products they need while helping suppliers reach a broader market. By simplifying communication, managing inventory in real-time, and providing competitive pricing, we ensure a seamless experience for all parties involved.
+    </p>
+    
+    <p class="text-left">
+      At Pharconne, we are dedicated to enhancing the efficiency of the pharmacy supply system, improving accessibility to medicines, and driving business growth for both pharmacies and suppliers.
+    </p><br>
+  </div>
+
+  <!-- Mission Statement -->
+  <div class="mission-statement text-left">
+    <h2>Our Mission</h2>
+    <p>
+      To revolutionize the pharmacy supply chain by offering a platform that connects pharmacies with reliable suppliers, ensuring timely delivery of medications, competitive pricing, and enhanced customer satisfaction.
+    </p><br>
+  </div>
+
+  <!-- Our Team Section -->
+  <div class="team-section text-center">
+    <h2>Meet Our Team</h2> <!-- Left-aligned h2 -->
+    <div class="row">
+      <!-- Team Member 1 -->
+      <div class="col-md-4 team-member text-center">
+        <img src="{% static 'images/jc.jpeg' %}" alt="Team Member 1" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+        <h3>Derry Cruise</h3>
+        <p>Co-Founder & CEO</p>
+        <p>
+          John is a visionary leader with a passion for improving healthcare accessibility. He brings years of experience in the tech and healthcare sectors, driving Pharconne's mission forward.
+        </p>
+      </div>    
+
+      <!-- Team Member 2 -->
+      <div class="col-md-4 team-member text-center">
+        <img src="{% static 'images/blnd.png' %}" alt="Team Member 2" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+        <h3>Blandon Lee</h3>
+        <p>Co-Founder & CEO</p>
+        <p>
+          Blandon has a strong background in both business management and healthcare, providing strategic guidance to Pharconne’s growth.
+        </p>
+      </div>
+
+      <!-- Team Member 3 -->
+      <div class="col-md-4 team-member text-center">
+        <img src="{% static 'images/jc.jpeg' %}" alt="Team Member 3" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+        <h3>Gilbert Hirwa</h3>
+        <p>Co-Founder & CEO</p>
+        <p>
+          Gilbert's expertise in technology integration has been pivotal in shaping Pharconne’s platform for optimal performance.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

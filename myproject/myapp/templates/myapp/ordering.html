@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Medicine</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">{{ request.session.user_name }}, Order Medicine</h2>
+        <form method="post" action="{% url 'ordering' %}">
+            {% csrf_token %}
+        
+            <!-- Pharmacy Name -->
+            <div class="form-group">
+                <label for="pharmacy_name">Pharmacy Name</label>
+                <input type="text" class="form-control" id="pharmacy_name" name="pharmacy_name" 
+                    placeholder="Enter your pharmacy name" value="{{ request.session.user_name }}" readonly>
+            </div>
+        
+            <!-- Medicine Name (Select Dropdown) -->
+            <div class="form-group">
+                <label for="medicine_name">Medicine Name</label>
+                <select class="form-control" id="medicine_name" name="medicine_name" required onchange="updatePrice()">
+                    <option value="" disabled selected>Select medicine</option>
+                    {% for medicine in medicines %}
+                    <option value="{{ medicine.name }}" data-price="{{ medicine.price }}">{{ medicine.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        
+            <!-- Quantity -->
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" 
+                    placeholder="Enter quantity to order" min="1" required>
+            </div>
+        
+            <!-- Supplier Name -->
+            <div class="form-group">
+                <label for="supplier_name">Supplier Name</label>
+                <select class="form-control" id="supplier_name" name="supplier_id" required>
+                    <option value="" disabled selected>Select supplier</option>
+                    {% for supplier in suppliers %}
+                    <option value="{{ supplier.S_id }}">{{ supplier.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        
+            <!-- Price -->
+            <div class="form-group">
+                <label for="price">Price per item</label>
+                <input type="text" class="form-control" id="price" name="price" 
+                    placeholder="Enter price per unit" readonly required>
+            </div>
+        
+            <!-- Order Date -->
+            <div class="form-group">
+                <label for="order_date">Order Date</label>
+                <input type="date" class="form-control" id="order_date" name="order_date" 
+                    placeholder="Select the order date" required>
+            </div>
+        
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary btn-block">Submit Order</button>
+        </form>
+        
+        <script>
+        function updatePrice() {
+            var medicineSelect = document.getElementById("medicine_name");
+            var selectedOption = medicineSelect.options[medicineSelect.selectedIndex];
+            var priceInput = document.getElementById("price");
+            
+            // Get the price from the selected option's data attribute
+            priceInput.value = selectedOption.getAttribute("data-price");
+        }
+        </script>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

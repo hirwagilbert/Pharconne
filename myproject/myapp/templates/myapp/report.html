@@ -1,0 +1,119 @@
+{% extends 'myapp/pharmacy_list.html' %}
+{% load static %}
+{% block content %}
+    <!-- Main Content -->
+    <div class="content-container">
+        <div class="message-container">
+            <div class="container my-5">
+                <h1 class="text-center fw-bold">Analytic & Report</h1>
+                
+                <!-- Sales Report -->
+        <section class="my-5">
+          <h2 class="fw-bold">Sales Report</h2>
+          <table class="table table-bordered">
+              <thead class="table-light">
+                  <tr>
+                      <th>Pharmacy Name</th>
+                      <th>Sales Medicine</th>
+                      <th>Time of Sales</th>
+                      <th>Daily Sales (Quantity & Price)</th>
+                      <th>Weekly Sales (Quantity & Price)</th>
+                      <th>Monthly Sales (Quantity & Price)</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for entry in report_data %}
+                    <tr>
+                        <td>{{ entry.pharmacy__P_name }}</td>
+                        <td>{{ entry.medicine__serial_number }}</td>
+                        <td>{{ now|date:"Y-m-d H:i A" }}</td>  <!-- Current time for the report -->
+                        <td>{{ entry.daily_sales_quantity }} units - ${{ entry.daily_sales_price|floatformat:2 }}</td>
+                        <td>{{ entry.weekly_sales_quantity }} units - ${{ entry.weekly_sales_price|floatformat:2 }}</td>
+                        <td>{{ entry.monthly_sales_quantity }} units - ${{ entry.monthly_sales_price|floatformat:2 }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No sales data available</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+      </section>
+                
+                <!-- Most Popular Products -->
+                <section class="my-5">
+                  <h2 class="fw-bold">Most Popular Products</h2>
+                  <table class="table table-bordered">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Pharmacy Name</th>
+                        <th>Medicine</th>
+                        <th>Quantity & Price</th>
+                        <th>Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Pharmacy C</td>
+                        <td>Medicine Z</td>
+                        <td>40 units - $400</td>
+                        <td>2024-10-26 11:15 AM</td>
+                      </tr>
+                      <tr>
+                        <td>Pharmacy A</td>
+                        <td>Medicine X</td>
+                        <td>30 units - $300</td>
+                        <td>2024-10-26 09:00 AM</td>
+                      </tr>
+                      <tr>
+                        <td>Pharmacy B</td>
+                        <td>Medicine Y</td>
+                        <td>25 units - $250</td>
+                        <td>2024-10-26 10:30 AM</td>
+                      </tr>
+                      <tr>
+                        <td>Pharmacy A</td>
+                        <td>Medicine W</td>
+                        <td>20 units - $200</td>
+                        <td>2024-10-26 12:00 PM</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </section>
+            
+                <!-- Financial Reports -->
+                <section class="my-5">
+                  <h2 class="fw-bold">Financial Reports</h2>
+                  <table class="table table-bordered">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Pharmacy Name</th>
+                        <th>Revenue</th>
+                        <th>Profit</th>
+                        <th>Expenses</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Pharmacy A</td>
+                        <td>$10,000</td>
+                        <td>$3,000</td>
+                        <td>$7,000</td>
+                      </tr>
+                      <tr>
+                        <td>Pharmacy B</td>
+                        <td>$15,000</td>
+                        <td>$5,000</td>
+                        <td>$10,000</td>
+                      </tr>
+                      <tr>
+                        <td>Pharmacy C</td>
+                        <td>$20,000</td>
+                        <td>$8,000</td>
+                        <td>$12,000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </section>
+              </div>            
+{% endblock content%}

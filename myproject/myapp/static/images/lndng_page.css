@@ -1,0 +1,219 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #F3F8F5;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+/* Header Styles */
+header {
+  background-color: #131921;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+}
+
+header .logo img {
+  max-height: 50px;
+  margin-left: 20px;
+  border-radius: 10px;
+}
+
+header .search-bar form {
+  display: flex;
+  align-items: center;
+}
+
+header .search-bar input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+}
+
+header .search-bar button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+header .account a {
+  text-decoration: none;
+  margin-right: 15px;
+  color: #007bff;
+}
+
+header .account a:hover {
+  text-decoration: underline;
+}
+
+/* Navigation Styles */
+nav {
+  background-color: #ffffff;
+  border-bottom: 1px solid #ccc;
+}
+
+nav .nav-container {
+  display: flex;
+  align-items: center;
+}
+
+nav .nav-container:hover{
+  color: #007bff;
+}
+
+nav .nav-logo {
+  max-height: 40px;
+}
+
+nav .navbar-nav .nav-link {
+  font-size: 1rem;
+  color: #333;
+  margin-right: 15px;
+}
+
+nav .navbar-nav .nav-link:hover {
+  color: #007bff;
+}
+
+/* Main Content Section */
+.main {
+  padding: 50px 0;
+}
+
+.main .content {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.main h1 {
+  font-size: 3rem;
+  color: #007bff;
+}
+
+.main .cta-buttons .btn {
+  margin: 10px;
+  padding: 10px 25px;
+  font-size: 1.1rem;
+}
+
+.main .cta-buttons .signup {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}
+
+.main .cta-buttons .signin {
+  background-color: transparent;
+  border: 2px solid #007bff;
+  color: #007bff;
+}
+
+.main .cta-buttons .signup:hover,
+.main .cta-buttons .signin:hover {
+  opacity: 0.8;
+}
+
+.main .main-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+/* Paragraph Section */
+.paragraph-section {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.paragraph-section p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+}
+
+.paragraph-section .secondary-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Footer Styles */
+footer {
+  background-color: #343a40;
+  color: #fff;
+  padding: 30px 0;
+}
+
+footer .footer-content {
+  margin-bottom: 20px;
+}
+
+footer .footer-content a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer .footer-content a:hover {
+  text-decoration: underline;
+}
+
+footer .footer-logo img {
+  max-height: 40px;
+}
+
+footer p {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main .content h1 {
+    font-size: 2rem;
+  }
+
+  .main .content p {
+    font-size: 1rem;
+  }
+
+  .cta-buttons .btn {
+    padding: 8px 20px;
+    font-size: 1rem;
+  }
+
+  .nav-container {
+    justify-content: space-between;
+  }
+
+  .paragraph-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-content {
+    text-align: center;
+  }
+}

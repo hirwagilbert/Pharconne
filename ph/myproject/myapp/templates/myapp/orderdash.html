@@ -1,0 +1,82 @@
+{% extends 'myapp/pharmacy_list.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Main Content -->
+    <div class="content-container">
+        <div class="message-container">
+            <!-- Pharmacy List Section -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <button class="btn btn-primary print-button mb-3" onclick="window.print()">Print</button>
+                    <h5 class="card-title mb-3">{{ request.session.user_name }} Ordering</h5>
+                        <div class="container">
+                            <h4>Current Orders</h4>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Medicine</th>
+                                            <th>Pharmacy</th>
+                                            <th>Supplier</th>
+                                            <th>Order Date</th>
+                                            <th>Quantity</th>
+                                            <th>Delivery Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            {% for order in data %}
+                                            <tr>
+                                                <td>{{ order.order_status }}</td>
+                                                <td>{{ order.medicine }}</td>
+                                                <td>{{ order.pharmacy }}</td>
+                                                <td>{{ order.supplier }}</td>
+                                                <td>{{ order.order_date }}</td>
+                                                <td>{{ order.quantity }}</td>
+                                                <td>{{ order.delivery_date }}</td>
+                                            </tr>
+                                            {% empty %}
+                                            <tr><td colspan="6">No orders found</td></tr>
+                                            {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+<!---
+                    Order History
+                <h4>Order History</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Order Date</th>
+                                <th>Status</th>
+                                <th>Medicine</th>
+                                <th>Pharmacy</th>
+                                <th>Supplier</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                <td>{{ order.order_date }}</td>
+                                <td>{{ order.status }}</td>
+                                <td>{{ order.medicine.name }}</td>
+                                <td>{{ order.pharmacy.name }}</td>
+                                <td>{{ order.supplier.name }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5">No data found!</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            --->
+        </div>
+    </div>
+    {% endblock %}
+    

@@ -1,0 +1,14 @@
+{% extends 'myapp/index.html' %}
+{% load static %}
+{% block content %}
+  <div class="container mt-5">
+    <h2>Sent Messages</h2>
+    <ul>
+      {% for message in messages %}
+        <li>
+          <strong>{{ message.sender.P_name }}</strong>: {{ message.message }} (Sent at: {{ message.sent_at }})
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

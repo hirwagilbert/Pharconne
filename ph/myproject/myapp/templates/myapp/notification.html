@@ -1,0 +1,168 @@
+{% extends 'myapp/pharmacy_list.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <h3>Notifications</h3>
+    <style>
+        .table-right {
+            margin-left: auto;
+            margin-right: 0;
+        }
+    </style>
+    
+    <div class="content-container">
+        <div class="message-container">
+            <!-- Pharmacy List Section -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Pharmacy List</h5>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Pharmacy Name</th>
+                                <th>Message</th>
+                                <th>Sent At</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for notification in data %}
+                            <tr>
+                                <td>{{ notification.pharmacy.P_name }}</td>
+                                <td>{{ notification.message }}</td>
+                                <td>{{ notification.created_at|date:"F j, Y, g:i a" }}</td>
+                                <td>
+                                    <!-- View Button that triggers the modal -->
+                                    <button class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#pharmacyModal" 
+                                        data-pharmacy-id="{{ notification.pharmacy.P_id }}" 
+                                        data-pharmacy-name="{{ notification.pharmacy.P_name }}" 
+                                        data-contact-info="{{ notification.pharmacy.contact_info }}" 
+                                        data-location="{{ notification.pharmacy.location }}" 
+                                        data-start-time="{{ notification.pharmacy.start_time }}" 
+                                        data-end-time="{{ notification.pharmacy.end_time }}" 
+                                        data-status="{{ notification.pharmacy.status }}" 
+                                        data-stock-level="{{ notification.pharmacy.stock_level }}"
+                                        data-created-at="{{ notification.created_at|date:"F j, Y, g:i a" }}">
+                                            View
+                                    </button>
+
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">No notifications available</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>                    
+                </div>
+            </div>
+            <div>
+                <a href="/send/"><button>sendmessage</button></a>
+            </div>
+        </div>
+    </div>    
+
+    
+
+        <!-- JavaScript for Popup -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                {% for notification in data %}
+                {% if not notification.is_read %}
+                if (confirm("Pharmacy: {{ notification.pharmacy.P_name }}\nMessage: {{ notification.message }}\n\nDo you want to approve this registration?")) {
+                    // If OK, send an AJAX request to approve
+                    fetch("{% url 'approve_notification' notification.id %}", {
+                        method: "POST",
+                        headers: {
+                            "X-CSRFToken": "{{ csrf_token }}"
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert("Pharmacy approved successfully.");
+                            location.reload();
+                        }
+                    });
+                } else {
+                    // If Cancel, send an AJAX request to delete
+                    fetch("{% url 'delete_notification' notification.id %}", {
+                        method: "POST",
+                        headers: {
+                            "X-CSRFToken": "{{ csrf_token }}"
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert("Pharmacy registration canceled successfully.");
+                            location.reload();
+                        }
+                    });
+                }
+                {% endif %}
+                {% endfor %}
+            });
+        </script>
+
+        <!-- Modal to Display Pharmacy Details -->
+        <div class="modal fade" id="pharmacyModal" tabindex="-1" aria-labelledby="pharmacyModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="pharmacyModalLabel">Pharmacy Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="pharmacy-details">
+                            <p><strong>Pharmacy Name:</strong> <span id="pharmacyName"></span></p>
+                            <p><strong>Contact Info:</strong> <span id="contactInfo"></span></p>
+                            <p><strong>Location:</strong> <span id="location"></span></p>
+                            <p><strong>Operating Hours:</strong> <span id="operatingHours"></span></p>
+                            <p><strong>Status:</strong> <span id="status"></span></p>
+                            <p><strong>Stock Level:</strong> <span id="stockLevel"></span></p>
+                            <p><strong>Joined at:</strong> <span id="joinedAt"></span></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- JavaScript to Populate Modal with Pharmacy Details -->
+<script>
+    var pharmacyModal = document.getElementById('pharmacyModal');
+    pharmacyModal.addEventListener('show.bs.modal', function (event) {
+        // Get the button that triggered the modal
+        var button = event.relatedTarget;
+        
+        // Get data attributes from the button
+        var pharmacyName = button.getAttribute('data-pharmacy-name');
+        var contactInfo = button.getAttribute('data-contact-info');
+        var location = button.getAttribute('data-location');
+        var startTime = button.getAttribute('data-start-time');
+        var endTime = button.getAttribute('data-end-time');
+        var status = button.getAttribute('data-status');
+        var stockLevel = button.getAttribute('data-stock-level');
+        var createdAt = button.getAttribute('data-created-at');  // Get the created_at value
+        
+        // Update the modal with pharmacy details
+        document.getElementById('pharmacyName').textContent = pharmacyName;
+        document.getElementById('contactInfo').textContent = contactInfo;
+        document.getElementById('location').textContent = location;
+        document.getElementById('operatingHours').textContent = startTime + ' - ' + endTime;
+        document.getElementById('status').textContent = status;
+        document.getElementById('stockLevel').textContent = stockLevel;
+        document.getElementById('joinedAt').textContent = createdAt;  // Set the created_at value in the modal
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

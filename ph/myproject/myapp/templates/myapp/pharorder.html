@@ -1,0 +1,101 @@
+{% extends 'myapp/userhome.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Main Content -->
+    <div class="content-container">
+        <div class="message-container">
+            <!-- Pharmacy List Section -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <button class="btn btn-primary print-button mb-3" onclick="window.print()">Print</button>
+                    <h5 class="card-title mb-3">{{ request.session.user_name }} Ordering</h5>
+                        <div class="container">
+                            <h4>Current Orders</h4>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Medicine</th>
+                                            <th>Pharmacy</th>
+                                            <th>Supplier</th>
+                                            <th>Order Date</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if orders %}
+                                            {% for order in orders %}
+                                            <tr>
+                                                <td>{{ order.order_status }}</td>
+                                                <td>{{ order.medicine }}</td>
+                                                <td>{{ order.pharmacy }}</td>
+                                                <td>{{ order.supplier }}</td>
+                                                <td>{{ order.order_date }}</td>
+                                                <td>{{ order.quantity }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr><td colspan="6">No orders found</td></tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+<!---
+                    Order History
+                <h4>Order History</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Order Date</th>
+                                <th>Status</th>
+                                <th>Medicine</th>
+                                <th>Pharmacy</th>
+                                <th>Supplier</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                <td>{{ order.order_date }}</td>
+                                <td>{{ order.status }}</td>
+                                <td>{{ order.medicine.name }}</td>
+                                <td>{{ order.pharmacy.name }}</td>
+                                <td>{{ order.supplier.name }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5">No data found!</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            --->
+        
+            <!-- Add New Pharmacy Section -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Ordering your medicine</h5>
+                    <a href="/ordering/" class="btn btn-dark">Order</a>
+                </div>
+            </div>
+        
+            <!-- Pharmacy Performance Metrics Section -->
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Pharmacy Performance Metrics</h5>
+                    <ul class="list-unstyled">
+                        <li>- Total Sales: $50,000</li>
+                        <li>- Average Rating: 4.5/5</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    

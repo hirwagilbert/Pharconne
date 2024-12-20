@@ -1,0 +1,652 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome your dashboard</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'myapp/css/pharmacy_list.css' %}">
+
+  <!-- Google Fonts for Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<style>
+    .medicine-dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    color: #fff; /* Adjust link color */
+    text-decoration: none;
+    display: block;
+    padding: 0.5em 1em;
+}
+
+.dropdown-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: #343a40; /* Dropdown background color */
+    position: absolute;
+    z-index: 1000;
+    width: 100%; /* Match the width of the parent */
+}
+
+.dropdown-item {
+    color: #adb5bd; /* Item color */
+    padding: 0.5em 1em;
+    text-decoration: none;
+    display: block; /* Take full width */
+}
+
+.dropdown-item:hover {
+    background-color: #495057; /* Highlight on hover */
+}
+
+.finance-section {
+    position: relative;
+    display: inline-block; /* Allows dropdown to position relative to the link */
+}
+
+.finance-link {
+    text-decoration: none;
+    color: teal;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.finance-dropdown {
+    background-color: teal;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    top: 30px; /* Adjust as needed */
+    left: 0;
+    z-index: 1000;
+    min-width: 120px; /* Minimum width for dropdown */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.dropdown-item {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #0f8f85; /* Light cyan on hover */
+}
+
+.income {
+    color: green; /* Green color for income */
+}
+
+.expense {
+    color: red; /* Red color for expenses */
+}
+</style>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="pharconne">
+            <img src="{% static 'images/log22.png' %}" alt="pharconne logo" class="logo-img ms-1">
+            <h4 class="text-light" style="margin-left: 1em;">Pharconne</h4>
+        </div>      
+        <nav>
+            <a href="{% url 'userhome' %}">Dashboard</a>
+            <a href="/pharorder/">Orders Management</a>
+        
+            <!-- Medicine Dropdown -->
+            <div class="medicine-dropdown">
+                <a href="#" id="medicineToggle" class="dropdown-toggle">Medicine</a>
+                <ul id="medicineList" class="dropdown-menu" style="display: none;">
+                    <li><a class="dropdown-item" href="/pharmaddmedicine/">Add Medicine</a></li>
+                    <li><a class="dropdown-item" href="/medicineview/">Medicine List</a></li>
+                    <li><a class="dropdown-item" href="/medicinedetails/">Medicine Details</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown" id="finance-dropdown-container">
+                <a href="#" id="finance-toggle" class="dropdown-toggle">Finance</a>
+                <ul id="finance-dropdown" class="dropdown-menu" style="display: none;">
+                    <li><a class="dropdown-item" href="/incame/">Income</a></li>
+                    <li><a class="dropdown-item" href="/expences/">Expenses</a></li>
+                </ul>
+            </div>
+        
+            <div class="dropdown">
+                <a href="#" id="report-toggle" class="dropdown-toggle">Report</a>
+                <ul id="report-dropdown" class="dropdown-menu" style="display: none;">
+                    <li><a class="dropdown-item" href="/salesreport/">Sales Report</a></li>
+                    <li><a class="dropdown-item" href="/purchasereport/">Purchase Report</a></li>
+                    <li><a class="dropdown-item" href="/stockreport/">Stock Report</a></li>
+                </ul>
+            </div>
+        
+            <a href="#">Supply Chain Monitoring</a>
+
+            <a href="#">Buyer Management</a>
+            <div class="d-inline-block">
+                <a href="{% url 'message_list' %}" class="position-relative text-decoration-none">
+                    Notifications
+                    {% if unread_count > 0 %}
+                        <span class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle">
+                            {{ unread_count }}
+                        </span>
+                    {% endif %}
+                </a>
+            </div>
+            <a href="#">Payment & Billing</a>
+
+                        <!-- Settings Dropdown -->
+                        <div class="dropdown">
+                            <a href="#" id="settings-toggle" class="dropdown-toggle">Settings</a>
+                            <ul id="settings-dropdown" class="dropdown-menu" style="display: none;">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="#" id="appearance-toggle">Appearance</a>
+                                    <ul id="appearance-dropdown" class="dropdown-menu" style="display: none;"> <!-- Initially hidden -->
+                                        <li><a class="dropdown-item" href="#" id="dark-system">Dark System</a></li>
+                                        <li><a class="dropdown-item" href="#" id="white-system">White System</a></li>
+                                    </ul>
+                                </li>
+                                
+                                <script>
+                                    // Function to apply the theme based on user preference
+                                    function applyTheme() {
+                                        const theme = localStorage.getItem('theme'); // Get the theme from localStorage
+                                        if (theme === 'dark') {
+                                            document.body.style.backgroundColor = '#000'; // Black background
+                                            document.body.style.color = '#fff'; // Light text
+                                        } else {
+                                            document.body.style.backgroundColor = '#fff'; // Light background
+                                            document.body.style.color = '#000'; // Dark text
+                                        }
+                                    }
+                                
+                                    // Call applyTheme on page load
+                                    window.onload = applyTheme;
+                                
+                                    // Toggle functionality for Appearance dropdown
+                                    document.getElementById('appearance-toggle').addEventListener('click', function(event) {
+                                        event.preventDefault(); // Prevent default anchor click behavior
+                                        const dropdown = document.getElementById('appearance-dropdown');
+                                        dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
+                                    });
+                                
+                                    // Close dropdowns when clicking outside
+                                    window.onclick = function(event) {
+                                        const appearanceDropdown = document.getElementById('appearance-dropdown');
+                                        const appearanceToggle = document.getElementById('appearance-toggle');
+                                
+                                        // Check if the click was outside the dropdown and toggle button
+                                        if (!appearanceDropdown.contains(event.target) && !appearanceToggle.contains(event.target)) {
+                                            appearanceDropdown.style.display = 'none'; // Hide the appearance dropdown
+                                        }
+                                    };
+                                
+                                    // Functionality for dark and white system options
+                                    document.getElementById('dark-system').addEventListener('click', function() {
+                                        document.body.style.backgroundColor = '#000'; // Set to black background
+                                        document.body.style.color = '#fff'; // Set to light text
+                                        localStorage.setItem('theme', 'dark'); // Save preference to localStorage
+                                    });
+                                
+                                    document.getElementById('white-system').addEventListener('click', function() {
+                                        document.body.style.backgroundColor = '#fff'; // Set to white background
+                                        document.body.style.color = '#000'; // Set to dark text
+                                        localStorage.setItem('theme', 'light'); // Save preference to localStorage
+                                    });
+                                </script>
+                                <li><a class="dropdown-item" href="#">Download</a></li>
+                                <li><a class="dropdown-item" href="#">Languages</a></li>
+                                <li><a class="dropdown-item" href="/resetpass/">Reset Password</a></li>
+                                <li><a class="dropdown-item" href="#">Reset Settings</a></li>
+                            </ul>
+                        </div>
+            
+                        <script>
+                            // Toggle functionality for Report dropdown
+                            document.getElementById('report-toggle').addEventListener('click', function(event) {
+                                event.preventDefault(); // Prevent the default anchor click behavior
+                                const dropdown = document.getElementById('report-dropdown');
+                                dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
+                            });
+            
+                            // Toggle functionality for Settings dropdown
+                            document.getElementById('settings-toggle').addEventListener('click', function(event) {
+                                event.preventDefault(); // Prevent the default anchor click behavior
+                                const dropdown = document.getElementById('settings-dropdown');
+                                dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
+                            });
+            
+                            // Close dropdowns when clicking outside
+                            window.onclick = function(event) {
+                                const settingsDropdown = document.getElementById('settings-dropdown');
+                                const settingsToggle = document.getElementById('settings-toggle');
+            
+                                // Check if the click was outside the dropdown and toggle button
+                                if (!settingsDropdown.contains(event.target) && !settingsToggle.contains(event.target)) {
+                                    settingsDropdown.style.display = 'none'; // Hide the settings dropdown
+                                }
+            
+                                // Optional: Close other dropdowns if needed (e.g., report dropdown)
+                                const reportDropdown = document.getElementById('report-dropdown');
+                                if (!reportDropdown.contains(event.target) && !document.getElementById('report-toggle').contains(event.target)) {
+                                    reportDropdown.style.display = 'none'; // Hide the report dropdown
+                                }
+                            };
+                        </script>
+        </nav>
+        <a href="{% url 'index'%}" class="logout text-danger" style="margin-top: 5em; margin-left: 7em;">Logout</a>
+    </div>
+    <!-- Topbar -->
+    <div class="topbar py-0 d-flex align-items-center justify-content-between">
+        <!-- Search Form -->
+        <div class="input-group w-75">
+            <form method="GET" action="{% url 'pharmacy_list' %}" class="d-flex w-100">
+                <input
+                    type="text"
+                    name="search"
+                    class="form-control me-2"
+                    value="{{ search_query }}"  
+                    placeholder="What are you looking for?"
+                />
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </div>
+    
+    <!-- Profile Container -->
+    <div class="d-flex align-items-center position-relative profile-container">
+        <!-- Tooltip message displayed on hover -->
+        <span 
+    class="me-2" 
+    style="color: #fff; font-weight: bold; margin-left: 1.5em;" 
+    data-bs-toggle="tooltip" 
+    data-bs-placement="top" 
+    title="Click to view and edit your profile">
+    Welcome, {{ request.session.user_name }}
+</span>
+
+        <a href="#" id="profile-link">
+            <img src="{% static 'images/new5.png' %}" alt="Profile" class="profile-img ms-3" />
+        </a>
+        <div class="profile-dropdown" style="display: none;">
+            <a href="#" id="view-profile" class="dropdown-item">View Profile</a>
+            <a href="#" id="edit-profile" class="dropdown-item">Edit Profile</a>
+        </div>
+    </div>
+    </div>
+    {%block content%}
+            <div class="content-container">
+                <div class="dashboard-container">
+                    <div class="row mb-4">
+                        <!-- Quick Stats -->
+                        <div class="col-md-3">
+                            <div class="card shadow-sm">
+                                <div class="card-body text-center">
+                                    <h5>Total Medicines</h5>
+                                    <p class="display-4">{{ total_medicines_count }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card shadow-sm">
+                                <div class="card-body text-center">
+                                    <h5>Pending Orders</h5>
+                                    <p class="display-4">{{ pending_orders_count }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card shadow-sm">
+                                <div class="card-body text-center">
+                                    <h5>Low Stock Items</h5>
+                                    <p class="display-4">{{ low_stock_level }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card shadow-sm">
+                                <div class="card-body text-center">
+                                    <h5>Notifications</h5>
+                                    <p class="display-4">{{ unread_message }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Inventory Section -->
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header">
+                            <h5>Inventory</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Medicine Name</th>
+                                            <th>Stock Level Items</th>
+                                            <th>Expiry Date</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            {% for pmedstock in data %}
+                                        <tr>
+                                            <td>{{ pmedstock.name }}</td>
+                                            <td>{{ pmedstock.stock }}</td>
+                                            <td>{{ pmedstock.expire_date }}</td>
+                                            <td>
+                                                <a href="/update/{{ medicine.id }}/" class="btn btn-warning btn-sm">Update</a>
+                                            </td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="4" class="text-center">No medicines available.</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Orders Section -->
+<div class="card shadow-sm mb-4">
+    <div class="card-header">
+        <h5>Recent Orders</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Supplier Name</th>
+                        <th>Customer Name</th>
+                        <th>Status</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th>Order Date</th>
+                        <th>Delivery Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.supplier.name }}</td>  
+                            <td>{{ order.customer.name }}</td>   
+                            <td>{{ order.order_status }}</td>   
+                            <td>{{ order.order_quantity }}</td>
+                            <td>{{ order.total_price }}</td>   
+                            <td>{{ order.order_date }}</td>
+                            <td>{{ order.delivery_date }}</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm" 
+                                        data-toggle="modal" 
+                                        data-target="#orderModal" 
+                                        data-supplier="{{ order.supplier.name }}" 
+                                        data-medicine="{{ order.medicine.name }}" 
+                                        data-status="{{ order.order_status }}" 
+                                        data-quantity="{{ order.order_quantity }}" 
+                                        data-total_price="{{ order.total_price }}" 
+                                        data-order_date="{{ order.order_date }}" 
+                                        data-delivery_date="{{ order.delivery_date }}">
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="8" class="text-center">No recent orders.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Order Details -->
+<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderModalLabel">Order Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Supplier Name:</strong> <span id="modalSupplier"></span></p>
+                <p><strong>Medicine Name:</strong> <span id="modalMedicine"></span></p>
+                <p><strong>Order Status:</strong> <span id="modalStatus"></span></p>
+                <p><strong>Medicine Quantity:</strong> <span id="modalQuantity"></span></p>
+                <p><strong>Total Price:</strong> <span id="modalTotalPrice"></span></p>
+                <p><strong>Order Date:</strong> <span id="modalOrderDate"></span></p>
+                <p><strong>Delivery Date:</strong> <span id="modalDeliveryDate"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- Custom JavaScript for Modal -->
+<script>
+    $('#orderModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var supplier = button.data('supplier'); 
+        var medicine = button.data('medicine');
+        var status = button.data('status');
+        var quantity = button.data('quantity');
+        var total_price = button.data('total_price');
+        var order_date = button.data('order_date');
+        var delivery_date = button.data('delivery_date');
+
+        // Update the modal's content
+        var modal = $(this);
+        modal.find('#modalSupplier').text(supplier);
+        modal.find('#modalMedicine').text(medicine);
+        modal.find('#modalStatus').text(status);
+        modal.find('#modalQuantity').text(quantity);
+        modal.find('#modalTotalPrice').text(total_price);  
+        modal.find('#modalOrderDate').text(order_date);
+        modal.find('#modalDeliveryDate').text(delivery_date);
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
+
+<!-- Profile Box (View Profile) -->
+<div id="profile-box" class="profile-box" style="display:none; position: absolute; top: 60px; left: 0; background-color: white; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); z-index: 100; margin-left: 50em;">
+    <h4>User Profile</h4>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>First Name:</strong> {{ user.first_name }}</p>
+    <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+</div>
+
+<!-- Edit Profile Form (Hidden by default) -->
+<div id="edit-profile-box" class="profile-box" style="display:none; position: absolute; top: 60px; left: 0; background-color: white; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); z-index: 100; margin-left: 50em;">
+<h4><u>{{ request.session.user_name }} Profile</u></h4><br/>
+<form method="POST" action="{% url 'edit_pharmacy_profile' %}">
+    {% csrf_token %}
+    
+    <!-- Pharmacy Name -->
+    <div class="mb-3">
+        <label for="P_name" class="form-label">Pharmacy Name</label>
+        <input type="text" class="form-control" id="P_name" name="P_name" value="{{ pharmacy.P_name }}" placeholder="enter new name">
+    </div>
+
+    <!-- Contact Info -->
+    <div class="mb-3">
+        <label for="contact_info" class="form-label">Contact Info</label>
+        <input type="text" class="form-control" id="contact_info" name="contact_info" value="{{ pharmacy.contact_info }}" placeholder="enter new contact">
+    </div>
+
+    <!-- Location -->
+    <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" class="form-control" id="location" name="location" value="{{ pharmacy.location }}" placeholder="enter new location">
+    </div>
+
+    <!-- Password -->
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" value="{{ pharmacy.password }}" placeholder="enter new password">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+</div>
+
+<script>
+// Toggle profile visibility
+const viewProfileLink = document.getElementById('view-profile');
+const profileBox = document.getElementById('profile-box');
+const editProfileLink = document.getElementById('edit-profile');
+const editProfileBox = document.getElementById('edit-profile-box');
+
+// Show profile details
+viewProfileLink.addEventListener('click', function(event) {
+    event.preventDefault();  // Prevent the default action of the link
+    profileBox.style.display = profileBox.style.display === 'none' ? 'block' : 'none';
+    editProfileBox.style.display = 'none'; // Hide edit profile box
+});
+
+// Show edit profile form
+editProfileLink.addEventListener('click', function(event) {
+    event.preventDefault();  // Prevent the default action of the link
+    editProfileBox.style.display = editProfileBox.style.display === 'none' ? 'block' : 'none';
+    profileBox.style.display = 'none'; // Hide profile details box
+});
+
+// Close the profile box if clicking outside of it
+document.addEventListener('click', function(event) {
+    if (!profileBox.contains(event.target) && event.target !== viewProfileLink && 
+        !editProfileBox.contains(event.target) && event.target !== editProfileLink) {
+        profileBox.style.display = 'none';
+        editProfileBox.style.display = 'none';
+    }
+});
+</script>
+
+
+<!-- Footer -->
+<footer class="footer">
+    <span style="color: #fff;" id="current-datetime"></span>
+</footer>
+
+<script>
+    function updateDateTime() {
+        const dateTimeElement = document.getElementById("current-datetime");
+        const now = new Date();
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+        };
+        dateTimeElement.textContent = now.toLocaleString(undefined, options);
+    }
+
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+</script>
+
+<script>
+// Enable tooltips (Bootstrap)
+document.addEventListener('DOMContentLoaded', function () {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+});
+
+// Get the profile link and the profile dropdown
+const profileLink = document.getElementById('profile-link');
+const profileDropdown = document.querySelector('.profile-dropdown');
+
+// Toggle the dropdown visibility on click
+profileLink.addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent the default link action
+    profileDropdown.style.display = profileDropdown.style.display === 'none' || profileDropdown.style.display === '' ? 'block' : 'none';
+});
+
+// Close the dropdown if clicking outside of the profile container
+document.addEventListener('click', function (event) {
+    if (!profileLink.contains(event.target) && !profileDropdown.contains(event.target)) {
+        profileDropdown.style.display = 'none'; // Hide the profile actions if clicked outside
+    }
+});
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const medicineToggle = document.getElementById('medicineToggle');
+        const medicineList = document.getElementById('medicineList');
+
+        medicineToggle.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+            // Toggle the display property
+            if (medicineList.style.display === 'none' || medicineList.style.display === '') {
+                medicineList.style.display = 'block'; // Show the dropdown
+            } else {
+                medicineList.style.display = 'none'; // Hide the dropdown
+            }
+        });
+
+        // Close the dropdown if clicking outside
+        document.addEventListener('click', function(event) {
+            if (!medicineToggle.contains(event.target) && !medicineList.contains(event.target)) {
+                medicineList.style.display = 'none'; // Hide dropdown
+            }
+        });
+    });
+</script>
+
+<script>
+    // Toggle dropdown visibility
+    document.getElementById('finance-toggle').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default anchor behavior
+        const dropdown = document.getElementById('finance-dropdown');
+        dropdown.style.display = (dropdown.style.display === 'none' || dropdown.style.display === '') ? 'block' : 'none';
+    });
+
+    // Hide dropdown if clicked outside
+    window.addEventListener('click', function(event) {
+        const dropdownContainer = document.getElementById('finance-dropdown-container');
+        const dropdown = document.getElementById('finance-dropdown');
+        if (!dropdownContainer.contains(event.target)) {
+            dropdown.style.display = 'none'; // Hide dropdown
+        }
+    });
+</script>
+
+
+
+<!-- Bootstrap JS -->
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<!-- Bootstrap JS (required for tooltips) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+

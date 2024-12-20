@@ -1,0 +1,175 @@
+{% extends 'myapp/userhome.html' %}
+{% load static %}
+{% block content %}
+
+<div class="content-container">
+    <div class="message-container">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <button class="btn btn-primary print-button mb-3" onclick="window.print()">Print</button>
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Date</th>
+            <th>Readable</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for message in messages %}
+            <tr>
+                <td>{{ message.title }}</td>
+                <td>{{ message.type }}</td>
+                <td>{{ message.date }}</td>
+                <td>
+                    {% if message.is_read %}
+                        <span class="text-success">&#10004;</span>
+                    {% else %}
+                        <span class="text-danger">&#10008;</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#messageModal"
+                            data-sender="{{ message.sender }}"
+                            data-type="{{ message.type }}"
+                            data-message="{{ message.message|escapejs }}"
+                            data-id="{{ message.id }}">View</button>
+
+                    <form action="{% url 'delete_message' message.id %}" method="POST" style="display:inline;" onsubmit="return confirmDelete();">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+
+                    <!-- Reply button to open the modal -->
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#replyModal"
+                            data-id="{{ message.id }}" 
+                            data-title="{{ message.title }}"
+                            data-sender="{{ message.sender }}"
+                            data-message="{{ message.message|escapejs }}">Reply</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Reply Modal -->
+<div class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="replyModalLabel">Reply to Message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Inside the modal in message_list.html -->
+<form id="replyForm" method="POST" action="{% url 'message_list' %}">
+    {% csrf_token %}
+    <div class="modal-body">
+        <div class="mb-3">
+            <label for="replyMessage" class="form-label">Your Reply</label>
+            <textarea class="form-control" id="replyMessage" name="message" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="replySender" class="form-label">Your Name</label>
+            <input type="text" class="form-control" id="replySender" name="sender_name" value="{{ request.session.user_name }}" required>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Send Reply</button>
+    </div>
+</form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Triggering the modal and populating the fields with message data
+    const replyModal = document.getElementById('replyModal');
+    replyModal.addEventListener('show.bs.modal', event => {
+        const button = event.relatedTarget; // Button that triggered the modal
+        const title = button.getAttribute('data-title');
+        const sender = button.getAttribute('data-sender');
+        const message = button.getAttribute('data-message');
+        const messageId = button.getAttribute('data-id');
+
+        // Update the modal's content.
+        const modalTitle = replyModal.querySelector('.modal-title');
+        const replyTitleInput = replyModal.querySelector('#replyTitle');
+        const replySenderInput = replyModal.querySelector('#replySender');
+        const replyMessageInput = replyModal.querySelector('#replyMessage');
+
+        modalTitle.textContent = `Reply to: ${title}`;
+        replyTitleInput.value = `Re: ${title}`; // Pre-fill title field
+        replySenderInput.value = sender; // Pre-fill sender field
+        replyMessageInput.value = ''; // Clear the message field
+
+        // Update the form action to include the message ID
+        const form = replyModal.querySelector('#replyForm');
+        form.action = `{% url 'reply_message' 0 %}`.replace('0', messageId);
+    });
+</script>
+
+<!-- Modal Structure -->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageModalLabel">Message Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <strong>Sender:</strong> <span id="modalSender"></span><br>
+                <strong>Type:</strong> <span id="modalType"></span><br>
+                <strong>Message:</strong> <span id="modalMessage"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Use event delegation to handle modal data population and mark as read
+    const messageModal = document.getElementById('messageModal');
+    messageModal.addEventListener('show.bs.modal', event => {
+        // Get data attributes from the button that triggered the modal
+        const button = event.relatedTarget; // Button that triggered the modal
+        const sender = button.getAttribute('data-sender');
+        const type = button.getAttribute('data-type');
+        const message = button.getAttribute('data-message');
+        const messageId = button.getAttribute('data-id'); // Get message ID
+
+        // Update the modal's content
+        document.getElementById('modalSender').textContent = sender;
+        document.getElementById('modalType').textContent = type;
+        document.getElementById('modalMessage').textContent = message;
+
+        // Mark the message as read via AJAX
+        $.ajax({
+            url: `/mark_as_read/${messageId}/`, // Adjust to your URL pattern
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token for the POST request
+            },
+            success: function(response) {
+                console.log('Message marked as read');
+            },
+            error: function(xhr) {
+                console.error('Error marking message as read');
+            }
+        });
+    });
+</script>
+
+<script>
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete this message?');
+    }
+</script>
+
+{% endblock %}

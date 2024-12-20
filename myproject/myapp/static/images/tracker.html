@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Stock Levels</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            padding: 20px;
+        }
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: white;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .stock-level {
+            display: inline-block;
+            padding: 4px 8px; /* Reduced padding */
+            border-radius: 4px;
+            font-size: 14px; /* Reduced font size */
+            color: white;
+        }
+        .low {
+            background-color: red;
+        }
+        .good {
+            background-color: green;
+        }
+        .half {
+            background-color: yellow;
+            color: black; /* Adjusted text color for yellow background */
+        }
+        img {
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Pharmacy Stock Levels</h2>
+<table>
+    <tr>
+        <th>Pharmacy Name</th>
+        <th>Stock Level</th>
+    </tr>
+    <tr>
+        <td>City Pharmacy</td>
+        <td><span class="stock-level low">Low Stock</span></td>
+    </tr>
+    <tr>
+        <td>Town Pharmacy</td>
+        <td><span class="stock-level good">Good Stock</span></td>
+    </tr>
+    <tr>
+        <td>Village Pharmacy</td>
+        <td><span class="stock-level half">Half Stock</span></td>
+    </tr>
+</table>
+
+</body>
+</html>

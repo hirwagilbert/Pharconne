@@ -1,0 +1,167 @@
+{% extends 'myapp/pharmacy_list.html' %}
+{% load static %}
+{% block content %}     
+
+    <!-- Main Content -->
+    <div class="content-container">
+        <div class="message-container">
+            <!-- Pharmacy List Section -->
+            <div class="container">
+                <h1>Buyer Management</h1>
+        
+                <!-- Buyer Profiles Section -->
+                <div class="table-section">
+                    <h2 class="h5 mb-3">Buyer Profiles</h2>
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>BID</th>
+                                <th>Buyer Name</th>
+                                <th>Photo</th>
+                                <th>Contact</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Pharmacy</th>
+                                <th>Medicine</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>001</td>
+                                <td>John Doe</td>
+                                <td>John</td>
+                                <td>123-456-7890</td>
+                                <td>john@example.com</td>
+                                <td>123 Elm St, City</td>
+                                <td>City Pharmacy</td>
+                                <td>Aspirin</td>
+                            </tr>
+                            <tr>
+                                <td>002</td>
+                                <td>Jane Smith</td>
+                                <td>Jane</td>
+                                <td>987-654-3210</td>
+                                <td>jane@example.com</td>
+                                <td>456 Oak St, City</td>
+                                <td>Town Pharmacy</td>
+                                <td>Ibuprofen</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        
+                <!-- Purchase History Section -->
+                <div class="table-section">
+                    <h2 class="h5 mb-3">Purchase History</h2>
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>BID</th>
+                                <th>Buyer Name</th>
+                                <th>Photo</th>
+                                <th>Contact</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Pharmacy</th>
+                                <th>Medicine</th>
+                                <th>Time Purchased</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>001</td>
+                                <td>John Doe</td>
+                                <td>John</td>
+                                <td>123-456-7890</td>
+                                <td>john@example.com</td>
+                                <td>123 Elm St, City</td>
+                                <td>City Pharmacy</td>
+                                <td>Aspirin</td>
+                                <td>2024-10-01 10:00 AM</td>
+                            </tr>
+                            <tr>
+                                <td>002</td>
+                                <td>Jane Smith</td>
+                                <td>Jane</td>
+                                <td>987-654-3210</td>
+                                <td>jane@example.com</td>
+                                <td>456 Oak St, City</td>
+                                <td>Town Pharmacy</td>
+                                <td>Ibuprofen</td>
+                                <td>2024-10-02 11:30 AM</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        
+                <!-- Cart Details Section -->
+                <div class="table-section">
+                    <h2 class="h5 mb-3">Cart Details (Active Orders)</h2>
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>BID</th>
+                                <th>Buyer Name</th>
+                                <th>Contact</th>
+                                <th>Address</th>
+                                <th>Pharmacy</th>
+                                <th>Medicine</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>001</td>
+                                <td>John Doe</td>
+                                <td>123-456-7890</td>
+                                <td>123 Elm St, City</td>
+                                <td>City Pharmacy</td>
+                                <td>Aspirin</td>
+                                <td>2024-10-03 09:00 AM</td>
+                            </tr>
+                            <tr>
+                                <td>002</td>
+                                <td>Jane Smith</td>
+                                <td>987-654-3210</td>
+                                <td>456 Oak St, City</td>
+                                <td>Town Pharmacy</td>
+                                <td>Ibuprofen</td>
+                                <td>2024-10-04 02:15 PM</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <span style="color: #fff;" id="current-datetime"></span>
+    </footer>
+
+    <script>
+        function updateDateTime() {
+            const dateTimeElement = document.getElementById("current-datetime");
+            const now = new Date();
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+            };
+            dateTimeElement.textContent = now.toLocaleString(undefined, options);
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock content %}

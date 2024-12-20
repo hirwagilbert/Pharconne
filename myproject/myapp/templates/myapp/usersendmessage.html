@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Notifications Form</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Create Message</h2>
+        <form id="notificationForm" method="POST" action="{% url 'usersendmessage' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="notificationTitle" class="form-label">Notification Title</label>
+                <input type="text" class="form-control" id="notificationTitle" name="title" required>
+            </div>
+            <div class="mb-3">
+                <label for="notificationMessage" class="form-label">Message</label>
+                <textarea class="form-control" id="notificationMessage" name="message" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="notificationType" class="form-label">Type</label>
+                <select class="form-select" id="notificationType" name="message_type" required>
+                    <option value="" disabled selected>Select type</option>
+                    <option value="info">Info</option>
+                    <option value="success">Success</option>
+                    <option value="warning">Warning</option>
+                    <option value="error">Error</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="receiverPharmacy" class="form-label">Select Receiver Pharmacy</label>
+                <select class="form-select" id="receiverPharmacy" name="receiver_pharmacy" required>
+                    <option value="" disabled selected>Select pharmacy</option>
+                    {% for pharmacy in pharmacies %}
+                        <option value="{{ pharmacy.id }}">{{ pharmacy.name }}</option>  <!-- Assuming 'id' and 'name' fields -->
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="senderName" class="form-label">Sender Name</label>
+                <input type="text" class="form-control" id="senderName" name="sender_name" required>
+            </div>
+            <div class="mb-3">
+                <label for="notificationDate" class="form-label">Date</label>
+                <input type="date" class="form-control" id="notificationDate" name="notification_date" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Notification</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

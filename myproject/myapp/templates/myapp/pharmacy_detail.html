@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Details</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <h1>{{ pharmacy.P_name }} Details:</h1>
+    <div class="pharmacy-details">
+        <p><strong>Pharmacy Name:</strong> {{ pharmacy.P_name }}</p>
+        <p><strong>Contact Info:</strong> {{ pharmacy.contact_info }}</p>
+        <p><strong>Location:</strong> {{ pharmacy.location }}</p>
+        <p><strong>Operating Hours:</strong> {{ pharmacy.start_time }} - {{ pharmacy.end_time }}</p>
+        <p><strong>Status:</strong> {{ pharmacy.status }}</p>
+        <p><strong>Stock Level:</strong> {{ pharmacy.stock_level }}</p>
+        <!-- Display the "Joined at" field from the notification -->
+        <p><strong>Joined at:</strong> {{ notification.created_at|date:"F j, Y, g:i a" }}</p>
+        <!-- Add other pharmacy details you need to show -->
+    </div>    
+    <a href="{% url 'notification' %}" class="btn btn-secondary">Back to List</a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
